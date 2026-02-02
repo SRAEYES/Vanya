@@ -8,53 +8,54 @@
 import SwiftUI
 
 struct MuseumArtCard: View {
-
     let image: String
     let title: String
     let subtitle: String
 
     var body: some View {
-        HStack(spacing: 16) {
-
-            // 🖼️ Artwork thumbnail (controlled size)
+        HStack(spacing: 20) {
             Image(image)
                 .resizable()
                 .scaledToFill()
-                .frame(width: 88, height: 110)
-                .clipped()
-                .cornerRadius(12)
+                .frame(width: 90, height: 120)
+                .clipShape(RoundedRectangle(cornerRadius: 15))
+                .overlay(RoundedRectangle(cornerRadius: 15).stroke(.white.opacity(0.2), lineWidth: 0.5))
+                .shadow(radius: 10)
 
-            VStack(alignment: .leading, spacing: 6) {
-
+            VStack(alignment: .leading, spacing: 8) {
                 Text(title)
-                    .font(.headline)
+                    .font(.system(.headline, design: .serif))
                     .foregroundColor(.white)
 
                 Text(subtitle)
                     .font(.caption)
-                    .foregroundColor(.white.opacity(0.6))
+                    .lineLimit(2)
+                    .foregroundColor(.white.opacity(0.5))
 
                 Spacer()
 
-                Text("Experience →")
-                    .font(.caption2)
-                    .foregroundColor(.blue.opacity(0.8))
+                HStack {
+                    Text("BEGIN EXPERIENCE")
+                        .font(.system(size: 10, weight: .black))
+                        .tracking(1)
+                        .foregroundColor(.orange)
+                    Image(systemName: "arrow.right.circle.fill")
+                        .foregroundStyle(.orange)
+                }
             }
+            .padding(.vertical, 10)
 
             Spacer()
         }
-        .padding(16)
-        .background(
-            RoundedRectangle(cornerRadius: 18)
-                .fill(Color.white.opacity(0.06)) // glassy dark
-                .background(
-                    RoundedRectangle(cornerRadius: 18)
-                        .fill(.ultraThinMaterial)
-                )
-        )
+        .padding(12)
+        .background {
+            RoundedRectangle(cornerRadius: 24)
+                .fill(.white.opacity(0.03))
+                .background(.ultraThinMaterial)
+        }
         .overlay(
-            RoundedRectangle(cornerRadius: 18)
-                .stroke(Color.white.opacity(0.08))
+            RoundedRectangle(cornerRadius: 24)
+                .stroke(LinearGradient(colors: [.white.opacity(0.2), .clear], startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 1)
         )
         .padding(.horizontal)
     }
