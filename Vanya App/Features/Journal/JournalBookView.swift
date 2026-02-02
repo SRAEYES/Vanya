@@ -27,8 +27,16 @@ struct JournalBookView: View {
         ZStack {
             Color.black.ignoresSafeArea()
 
+            // 📖 Page curl book
             PageCurlView(pages: pages)
                 .ignoresSafeArea()
+
+            // 🌀 Spiral binding (fixed)
+            HStack {
+                SpiralBindingView()
+                Spacer()
+            }
+            .ignoresSafeArea()
         }
         .navigationBarTitleDisplayMode(.inline)
     }
