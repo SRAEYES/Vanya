@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@available(iOS 18.0, *)
 struct RegionHotspot: View {
 
     let title: String

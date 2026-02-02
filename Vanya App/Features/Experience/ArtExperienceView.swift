@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@available(iOS 18.0, *)
 struct ArtExperienceView: View {
 
     var body: some View {

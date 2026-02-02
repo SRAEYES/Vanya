@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@available(iOS 18.0, *)
 struct MuseumEntryView: View {
 
     @State private var zoomIn = false

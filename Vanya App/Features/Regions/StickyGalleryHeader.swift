@@ -122,6 +122,7 @@
 
 import SwiftUI
 
+@available(iOS 18.0, *)
 struct StickyGalleryHeader: View {
 
     var body: some View {
