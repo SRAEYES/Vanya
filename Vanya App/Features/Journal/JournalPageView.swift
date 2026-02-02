@@ -29,9 +29,6 @@ struct JournalPageView: View {
                 VStack {
                     HStack {
                         Spacer()
-                        RibbonView()
-                            .padding(.top, -4)
-                            .padding(.trailing, 36)
                     }
                     Spacer()
                 }

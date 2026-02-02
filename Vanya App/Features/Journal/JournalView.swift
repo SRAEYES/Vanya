@@ -1,3 +1,11 @@
+//
+//  JournalView.swift
+//  SwiftStudentChalleneg
+//
+//  Created by user66 on 02/02/26.
+//
+
+
 import SwiftUI
 
 struct JournalView: View {
@@ -130,32 +138,3 @@ struct BookRow: View {
         )
     }
 }
-
-// MARK: - Destination View with Back Button
-//struct JournalBookView: View {
-//    @Environment(\.dismiss) var dismiss
-//    
-//    var body: some View {
-//        ZStack {
-//            Color.black.ignoresSafeArea()
-//            
-//            Text("Drawing Canvas")
-//                .foregroundStyle(.secondary)
-//        }
-//        .navigationBarBackButtonHidden(true)
-//        .toolbar {
-//            ToolbarItem(placement: .navigationBarLeading) {
-//                Button {
-//                    dismiss()
-//                } label: {
-//                    HStack(spacing: 4) {
-//                        Image(systemName: "chevron.left")
-//                        Text("Library")
-//                    }
-//                    .font(.system(size: 17, weight: .medium))
-//                    .foregroundStyle(.blue) // Apple's standard interactive color
-//                }
-//            }
-//        }
-//    }
-//}
