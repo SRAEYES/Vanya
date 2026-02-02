@@ -6,9 +6,101 @@
 //
 
 import SwiftUI
+//
+//struct PremiumArtTile: View {
+//
+//    let image: String
+//    let title: String
+//    let subtitle: String
+//
+//    @State private var liked = false
+//    @State private var saved = false
+//
+//    var body: some View {
+//        VStack(alignment: .leading, spacing: 10) {
+//
+//            // 🖼️ IMAGE → OPENS CREATE ART VIEW
+//            NavigationLink {
+//                CreateArtView()
+//            } label: {
+//                Image(image)
+//                    .resizable()
+//                    .scaledToFill()
+//                    .frame(height: 140)
+//                    .clipped()
+//                    .cornerRadius(12)
+//            }
+//            .buttonStyle(.plain)
+//
+//            // 🏷️ TEXT
+//            VStack(alignment: .leading, spacing: 2) {
+//                Text(title)
+//                    .font(.headline)
+//                    .foregroundColor(.white)
+//
+//                Text(subtitle)
+//                    .font(.caption)
+//                    .foregroundColor(.white.opacity(0.6))
+//            }
+//
+//            // ❤️ COMMUNITY ACTIONS
+//            HStack(spacing: 16) {
+//
+//                Button {
+//                    liked.toggle()
+//                    UIImpactFeedbackGenerator(style: .light).impactOccurred()
+//                } label: {
+//                    Image(systemName: liked ? "heart.fill" : "heart")
+//                        .foregroundColor(liked ? .red : .white.opacity(0.7))
+//                }
+//
+//                Button {
+//                    share()
+//                } label: {
+//                    Image(systemName: "square.and.arrow.up")
+//                        .foregroundColor(.white.opacity(0.7))
+//                }
+//
+//                Button {
+//                    saved.toggle()
+//                } label: {
+//                    Image(systemName: saved ? "bookmark.fill" : "bookmark")
+//                        .foregroundColor(.white.opacity(0.7))
+//                }
+//
+//                Spacer()
+//            }
+//            .font(.caption)
+//            .padding(.top, 4)
+//        }
+//        .padding(12)
+//        .background(
+//            RoundedRectangle(cornerRadius: 18)
+//                .fill(Color.white.opacity(0.06))
+//        )
+//        .overlay(
+//            RoundedRectangle(cornerRadius: 18)
+//                .stroke(Color.white.opacity(0.08))
+//        )
+//    }
+//
+//    // 📤 SHARE
+//    private func share() {
+//        let text = "Exploring \(title) art on Vanya 🌿"
+//        let activityVC = UIActivityViewController(
+//            activityItems: [text],
+//            applicationActivities: nil
+//        )
+//
+//        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+//           let root = scene.windows.first?.rootViewController {
+//            root.present(activityVC, animated: true)
+//        }
+//    }
+//}
+
 
 struct PremiumArtTile: View {
-
     let image: String
     let title: String
     let subtitle: String
@@ -17,80 +109,76 @@ struct PremiumArtTile: View {
     @State private var saved = false
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-
+        VStack(alignment: .leading, spacing: 0) {
+            
             // 🖼️ IMAGE → OPENS CREATE ART VIEW
-            NavigationLink {
-                CreateArtView()
-            } label: {
-                Image(image)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(height: 140)
-                    .clipped()
-                    .cornerRadius(12)
-            }
-            .buttonStyle(.plain)
-
-            // 🏷️ TEXT
-            VStack(alignment: .leading, spacing: 2) {
-                Text(title)
-                    .font(.headline)
-                    .foregroundColor(.white)
-
-                Text(subtitle)
-                    .font(.caption)
-                    .foregroundColor(.white.opacity(0.6))
-            }
-
-            // ❤️ COMMUNITY ACTIONS
-            HStack(spacing: 16) {
-
-                Button {
-                    liked.toggle()
-                    UIImpactFeedbackGenerator(style: .light).impactOccurred()
-                } label: {
-                    Image(systemName: liked ? "heart.fill" : "heart")
-                        .foregroundColor(liked ? .red : .white.opacity(0.7))
+            NavigationLink(destination: CreateArtView()) {
+                ZStack {
+                    // Frame for the image
+                    Image(image)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(height: 140)
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
                 }
-
-                Button {
-                    share()
-                } label: {
-                    Image(systemName: "square.and.arrow.up")
-                        .foregroundColor(.white.opacity(0.7))
-                }
-
-                Button {
-                    saved.toggle()
-                } label: {
-                    Image(systemName: saved ? "bookmark.fill" : "bookmark")
-                        .foregroundColor(.white.opacity(0.7))
-                }
-
-                Spacer()
+                .padding(8) // Beautiful inset frame look
             }
-            .font(.caption)
-            .padding(.top, 4)
+            .buttonStyle(PlainButtonStyle())
+
+            // 🏷️ TEXT & COMMUNITY ACTIONS
+            VStack(alignment: .leading, spacing: 12) {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(title)
+                        .font(.system(.subheadline, design: .serif, weight: .bold))
+                        .foregroundColor(.white.opacity(0.9))
+                        .lineLimit(1)
+
+                    Text(subtitle.uppercased())
+                        .font(.system(size: 9, weight: .black))
+                        .tracking(1)
+                        .foregroundColor(.white.opacity(0.4))
+                }
+                
+                // ❤️ ACTION BAR
+                HStack(spacing: 18) {
+                    Button {
+                        liked.toggle()
+                        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                    } label: {
+                        Image(systemName: liked ? "heart.fill" : "heart")
+                            .foregroundColor(liked ? .red : .white.opacity(0.5))
+                    }
+
+                    Button { share() } label: {
+                        Image(systemName: "square.and.arrow.up")
+                            .foregroundColor(.white.opacity(0.5))
+                    }
+
+                    Button {
+                        saved.toggle()
+                        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                    } label: {
+                        Image(systemName: saved ? "bookmark.fill" : "bookmark")
+                            .foregroundColor(saved ? .white : .white.opacity(0.5))
+                    }
+                }
+                .font(.system(size: 14))
+            }
+            .padding([.horizontal, .bottom], 14)
+            .padding(.top, 2)
         }
-        .padding(12)
-        .background(
-            RoundedRectangle(cornerRadius: 18)
-                .fill(Color.white.opacity(0.06))
-        )
+        // ✨ THE LIQUID GLASS EFFECT
+        .background(.ultraThinMaterial.opacity(0.15))
+        .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
         .overlay(
-            RoundedRectangle(cornerRadius: 18)
-                .stroke(Color.white.opacity(0.08))
+            RoundedRectangle(cornerRadius: 20, style: .continuous)
+                .stroke(LinearGradient(colors: [.white.opacity(0.4), .clear], startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 0.5)
         )
     }
 
-    // 📤 SHARE
     private func share() {
         let text = "Exploring \(title) art on Vanya 🌿"
-        let activityVC = UIActivityViewController(
-            activityItems: [text],
-            applicationActivities: nil
-        )
+        let activityVC = UIActivityViewController(activityItems: [text], applicationActivities: nil)
 
         if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
            let root = scene.windows.first?.rootViewController {
