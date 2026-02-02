@@ -19,26 +19,20 @@ struct PremiumArtTile: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
 
-            // 🖼️ Image → Guided Art Canvas
+            // 🖼️ IMAGE → OPENS CREATE ART VIEW
             NavigationLink {
-                GuidedArtCanvasView()
+                CreateArtView()
             } label: {
                 Image(image)
                     .resizable()
                     .scaledToFill()
                     .frame(height: 140)
-                    .clipShape(
-                        RoundedRectangle(cornerRadius: 6, style: .continuous)
-                    )
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 6, style: .continuous)
-                            .stroke(Color.white.opacity(0.08))
-                    )
-                    .shadow(radius: 4)
+                    .clipped()
+                    .cornerRadius(12)
             }
             .buttonStyle(.plain)
 
-            // 🏷️ Text
+            // 🏷️ TEXT
             VStack(alignment: .leading, spacing: 2) {
                 Text(title)
                     .font(.headline)
@@ -49,17 +43,7 @@ struct PremiumArtTile: View {
                     .foregroundColor(.white.opacity(0.6))
             }
 
-            // 🧩 Puzzle Action
-//            NavigationLink {
-//                PuzzleView()
-//            } label: {
-//                Text("Play Puzzle")
-//                    .font(.caption)
-//                    .fontWeight(.medium)
-//                    .foregroundColor(.blue)
-//            }
-
-            // ❤️ Community Actions
+            // ❤️ COMMUNITY ACTIONS
             HStack(spacing: 16) {
 
                 Button {
@@ -100,7 +84,7 @@ struct PremiumArtTile: View {
         )
     }
 
-    // 📤 Share (System Share Sheet)
+    // 📤 SHARE
     private func share() {
         let text = "Exploring \(title) art on Vanya 🌿"
         let activityVC = UIActivityViewController(

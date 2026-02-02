@@ -6,27 +6,44 @@
 //
 
 import SwiftUI
+import UIKit
 
 // One saved artwork
+//struct JournalEntry: Identifiable {
+//    let id = UUID()
+//    let title: String
+//    let isCompleted: Bool
+//    let date: Date
+//}
+
 struct JournalEntry: Identifiable {
     let id = UUID()
     let title: String
+    let image: UIImage       // ✅ ADD THIS
     let isCompleted: Bool
     let date: Date
 }
 
+
 // Shared store (simple & safe)
+//import UIKit
+//import SwiftUI
+
 class ArtJournalStore: ObservableObject {
+
     @MainActor static let shared = ArtJournalStore()
 
     @Published var entries: [JournalEntry] = []
 
-    func save(title: String, completed: Bool) {
+    private init() {}
+
+    func save(title: String, image: UIImage, completed: Bool) {
         let entry = JournalEntry(
             title: title,
+            image: image,          // ✅ STORE IMAGE
             isCompleted: completed,
             date: Date()
         )
-        entries.insert(entry, at: 0)
+        entries.append(entry)
     }
 }

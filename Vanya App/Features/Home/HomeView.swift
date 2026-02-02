@@ -28,7 +28,7 @@ struct HomeView: View {
                         )
                         .opacity(0.95)
 
-                    // 🏷️ Title
+//                     🏷️ Title
                     VStack(spacing: 6) {
                         Text("Explore Indian Art")
                             .font(.title2)

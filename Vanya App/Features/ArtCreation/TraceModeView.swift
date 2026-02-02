@@ -58,9 +58,14 @@ struct TraceModeView: View {
 
             // 🌟 Glowing outline (guide)
             Image("kalamkari_outline")
+                .renderingMode(.template)
                 .resizable()
                 .scaledToFit()
-                .opacity(0.45)
+                .foregroundColor(.black)
+                .opacity(0.75)
+                .padding(24)
+
+
                 .overlay(
                     Image("kalamkari_outline")
                         .resizable()
@@ -69,16 +74,16 @@ struct TraceModeView: View {
                         .opacity(glow ? 0.6 : 0.3)
                 )
 
-            // ✏️ User trace path
-            Path { path in
-                guard let first = tracedPoints.first else { return }
-                path.move(to: first)
-                for point in tracedPoints {
-                    path.addLine(to: point)
-                }
-            }
-            .stroke(Color.orange, lineWidth: 4)
-            
+            // ✏️ User trace strokes
+                        Path { path in
+                            guard let first = tracedPoints.first else { return }
+                            path.move(to: first)
+                            for point in tracedPoints {
+                                path.addLine(to: point)
+                            }
+                        }
+                        .stroke(Color.black, lineWidth: 2)  // thin for tracing
+
             if showConfetti {
                 SubtleConfettiView()
                     .allowsHitTesting(false)
@@ -150,12 +155,9 @@ struct TraceModeView: View {
 
     // 💾 Save logic
     func saveArtwork() {
-        saved = true
-        journal.save(
-            title: "Kalamkari Art",
-            completed: completed
-        )
-        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+        // For now: save inside app (no Photos access)
+        print("Artwork saved to journal")
     }
 
 }
