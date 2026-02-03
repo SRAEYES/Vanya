@@ -33,7 +33,7 @@ struct CreateArtView: View {
             .ignoresSafeArea()
 
             VStack(spacing: 0) {
-                // 🎯 Minimal Top Bar
+                // Minimal Top Bar
                 HStack(spacing: 16) {
                     // Back button
                     Button {
@@ -63,8 +63,6 @@ struct CreateArtView: View {
                         HStack(spacing: 6) {
                             Image(systemName: showGuide ? "eye.fill" : "eye.slash.fill")
                                 .font(.system(size: 14))
-//                            Text("Guide")
-//                                .font(.system(size: 13, weight: .medium))
                         }
                         .foregroundColor(showGuide ? .orange : .gray)
                         .padding(.horizontal, 12)
@@ -114,7 +112,7 @@ struct CreateArtView: View {
                 .padding(.top, 12)
                 .padding(.bottom, 8)
                 
-                // 🎨 Maximum Drawing Area
+                // Maximum Drawing Area
                 ZStack {
                     // Breathing guide
                     if showGuide {
@@ -149,7 +147,7 @@ struct CreateArtView: View {
                 }
                 .frame(maxHeight: .infinity)
                 
-                // 🔧 Ultra-Compact Premium Toolbar
+                // Ultra-Compact Premium Toolbar
                 UltraModernToolbar(
                     selectedTool: $selectedTool,
                     showColorPicker: $showColorPicker

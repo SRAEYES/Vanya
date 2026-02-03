@@ -5,13 +5,6 @@
 //  Created by user66 on 03/02/26.
 //
 
-//
-//  UltraModernToolbar.swift
-//  SwiftStudentChalleneg
-//
-//  Ultra-compact modern toolbar
-//
-
 import SwiftUI
 import PencilKit
 

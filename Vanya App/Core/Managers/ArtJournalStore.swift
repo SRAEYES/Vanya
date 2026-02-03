@@ -8,26 +8,13 @@
 import SwiftUI
 import UIKit
 
-// One saved artwork
-//struct JournalEntry: Identifiable {
-//    let id = UUID()
-//    let title: String
-//    let isCompleted: Bool
-//    let date: Date
-//}
-
 struct JournalEntry: Identifiable {
     let id = UUID()
     let title: String
-    let image: UIImage       // ✅ ADD THIS
+    let image: UIImage
     let isCompleted: Bool
     let date: Date
 }
-
-
-// Shared store (simple & safe)
-//import UIKit
-//import SwiftUI
 
 class ArtJournalStore: ObservableObject {
 
@@ -40,7 +27,7 @@ class ArtJournalStore: ObservableObject {
     func save(title: String, image: UIImage, completed: Bool) {
         let entry = JournalEntry(
             title: title,
-            image: image,          // ✅ STORE IMAGE
+            image: image,          
             isCompleted: completed,
             date: Date()
         )

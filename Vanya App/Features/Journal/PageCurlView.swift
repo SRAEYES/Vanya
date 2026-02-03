@@ -10,7 +10,7 @@ import UIKit
 
 struct PageCurlView: UIViewControllerRepresentable {
 
-    let pages: [UIViewController]   // ✅ FIX
+    let pages: [UIViewController]  
 
     func makeUIViewController(context: Context) -> UIPageViewController {
 

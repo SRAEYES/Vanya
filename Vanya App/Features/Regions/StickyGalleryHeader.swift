@@ -12,7 +12,7 @@ import SwiftUI
 struct StickyGalleryHeader: View {
     var body: some View {
         HStack(alignment: .center) {
-            // 🏷️ Title Group
+            // Title Group
             VStack(alignment: .leading, spacing: 2) {
                 Text("South India")
                     .font(.system(size: 26, weight: .bold, design: .serif))
@@ -26,7 +26,7 @@ struct StickyGalleryHeader: View {
 
             Spacer()
 
-            // 🛠️ Tool Group
+            // Tool Group
             HStack(spacing: 12) {
                 HeaderIcon(icon: "square.grid.2x2", destination: PuzzleView())
                 HeaderIcon(icon: "book.closed.fill", destination: JournalView())

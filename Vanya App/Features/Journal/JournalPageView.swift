@@ -14,7 +14,7 @@ struct JournalPageView: View {
     var body: some View {
         ZStack {
 
-            // 📄 Base paper background
+            // Base paper background
             Color(white: 0.95)
                 .ignoresSafeArea()
 
@@ -35,12 +35,12 @@ struct JournalPageView: View {
                 .zIndex(3)
             }
 
-            // 📖 Page content
+            // Page content
             VStack(spacing: 18) {
 
                 Spacer()
 
-                // 🖼️ ART PRINT AREA (CENTERED)
+                // ART PRINT AREA (CENTERED)
                 ZStack {
                     GeometryReader { geo in
                         Image(uiImage: entry.image)
@@ -87,7 +87,7 @@ struct JournalPageView: View {
         }
     }
 
-    // ✍️ Handwritten metadata
+    // Handwritten metadata
     private var metadata: some View {
         VStack(spacing: 6) {
             Text(entry.isCompleted ? "Completed Artwork" : "Draft")

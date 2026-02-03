@@ -15,11 +15,11 @@ struct ColorModeView: View {
     var body: some View {
         ZStack {
 
-            // 🧾 Paper background
+            // Paper background
             Color(white: 0.96)
                 .ignoresSafeArea()
 
-            // 🖼️ Outline (always on top of paper)
+            // Outline (always on top of paper)
             Image("kalamkari_outline")
                 .renderingMode(.template)
                 .resizable()
@@ -28,7 +28,7 @@ struct ColorModeView: View {
                 .opacity(0.7)
                 .padding(24)
 
-            // ✏️ User coloring strokes
+            // User coloring strokes
             ForEach(strokes) { stroke in
                 Path { path in
                     guard let first = stroke.points.first else { return }
@@ -40,7 +40,7 @@ struct ColorModeView: View {
                 .stroke(stroke.color, lineWidth: 8)   // thicker = coloring feel
             }
 
-            // 🎨 Color palette
+            // Color palette
             VStack {
                 Spacer()
                 HStack(spacing: 14) {

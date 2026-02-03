@@ -38,7 +38,7 @@ struct JournalView: View {
                         .padding(.top, 20)
 
                         VStack(spacing: 18) {
-                            // ✅ UNLOCKED BOOK (With Image)
+                            // UNLOCKED BOOK (With Image)
                             NavigationLink(destination: JournalBookView()) {
                                 FeaturedBookCard(
                                     title: "Spiral Sketchbook",
@@ -49,7 +49,7 @@ struct JournalView: View {
                             }
                             .buttonStyle(PlainButtonStyle())
 
-                            // 🔒 LOCKED BOOKS (Lower Opacity / Desaturated)
+                            // LOCKED BOOKS (Lower Opacity / Desaturated)
                             BookRow(title: "Folk Art Journal", icon: "lock.fill", isLocked: true)
                             BookRow(title: "Museum Archive", icon: "lock.fill", isLocked: true)
                         }

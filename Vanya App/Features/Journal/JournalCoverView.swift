@@ -12,7 +12,7 @@ struct JournalCoverView: View {
     var body: some View {
         ZStack {
 
-            // 📕 Cover background
+            // Cover background
             LinearGradient(
                 colors: [
                     Color(red: 70/255, green: 45/255, blue: 30/255),
@@ -23,7 +23,7 @@ struct JournalCoverView: View {
             )
             .ignoresSafeArea()
 
-            // 📖 Texture
+            // Texture
             Image("leather_texture")
                 .resizable()
                 .scaledToFill()

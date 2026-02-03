@@ -5,13 +5,6 @@
 //  Created by user66 on 03/02/26.
 //
 
-//
-//  PremiumToolBarView.swift
-//  SwiftStudentChalleneg
-//
-//  Premium artistic toolbar
-//
-
 import SwiftUI
 import PencilKit
 
