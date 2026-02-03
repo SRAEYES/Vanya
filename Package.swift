@@ -17,9 +17,10 @@ let package = Package(
             name: "SwiftStudentChalleneg",
             targets: ["AppModule"],
             bundleIdentifier: "com.sample.SwiftStudentChalleneg",
+            teamIdentifier: "V3B6B37Y7S",
             displayVersion: "1.0",
             bundleVersion: "1",
-            appIcon: .placeholder(icon: .location),
+            appIcon: .asset("AppIcon"),
             accentColor: .presetColor(.blue),
             supportedDeviceFamilies: [
                 .pad,
