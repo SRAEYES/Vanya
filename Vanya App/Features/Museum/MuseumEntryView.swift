@@ -12,6 +12,9 @@ struct MuseumEntryView: View {
     @State private var immersionProgress: CGFloat = 0.0
     @State private var ambientGlow: Double = 0.0
     @State private var goNext = false
+    @Environment(\.dismiss) private var dismiss
+
+    var onExit: (() -> Void)? = nil
     
     var body: some View {
         ZStack {
@@ -77,7 +80,10 @@ struct MuseumEntryView: View {
         }
         .navigationBarBackButtonHidden(true)
         .onAppear(perform: executeProfessionalEntry)
-        .fullScreenCover(isPresented: $goNext) {
+        .fullScreenCover(isPresented: $goNext, onDismiss: {
+            onExit?()          // 🔥 reset NavigationPath
+            dismiss()          // 🔥 pop MuseumEntryView
+        }) {
             SouthIndiaArtView()
         }
     }

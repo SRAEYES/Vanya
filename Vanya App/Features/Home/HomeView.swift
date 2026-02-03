@@ -14,9 +14,11 @@ struct HomeView: View {
     @State private var isMapLoaded = false
     @State private var dragOffset = CGSize.zero
     @State private var meshPhase: Float = 0.0 // For animated background
+    @State private var navigationPath = NavigationPath()
+
     
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $navigationPath) {
             GeometryReader { geo in
                 ZStack {
                     // MARK: - 1. ADVANCED ANIMATED MESH GRADIENT
@@ -82,7 +84,7 @@ struct HomeView: View {
                         // HOTSPOT LOGIC (Connections maintained)
                         ZStack {
                             // SOUTH (The Active Entry)
-                            NavigationLink(destination: MuseumEntryView()) {
+                            NavigationLink(value: "south") {
                                 PremiumRegionPoint(label: "South", isUnlocked: true)
                             }
                             .offset(x: 10, y: geo.size.height * 0.22)
@@ -95,7 +97,16 @@ struct HomeView: View {
 
                             PremiumRegionPoint(label: "East", isUnlocked: false)
                                 .offset(x: geo.size.width * 0.32, y: -geo.size.height * 0.02)
+                        }.navigationDestination(for: String.self) { value in
+                            if value == "south" {
+                                MuseumEntryView(
+                                    onExit: {
+                                        navigationPath = NavigationPath() // 🔥 reset stack
+                                    }
+                                )
+                            }
                         }
+
                         
                         Spacer()
                         

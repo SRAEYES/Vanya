@@ -11,6 +11,8 @@ import SwiftUI
 @available(iOS 18.0, *)
 struct SouthIndiaArtView: View {
     @State private var searchText = ""
+    @Environment(\.dismiss) private var dismiss
+
     
     struct ArtItem: Identifiable {
         let id = UUID()
@@ -50,7 +52,7 @@ struct SouthIndiaArtView: View {
                 VStack(spacing: 0) {
                     StickyGalleryHeader()
                         .padding(.bottom, 10)
-
+                    
                     // 🔍 Minimalist Glass Search Bar
                     HStack {
                         Image(systemName: "magnifyingglass")
@@ -58,8 +60,8 @@ struct SouthIndiaArtView: View {
                             .foregroundStyle(.white.opacity(0.4))
                         
                         TextField("", text: $searchText, prompt:
-                            Text("Search traditions...")
-                                .foregroundColor(.white.opacity(0.25))
+                                    Text("Search traditions...")
+                            .foregroundColor(.white.opacity(0.25))
                         )
                         .foregroundColor(.white)
                         .textInputAutocapitalization(.never)
@@ -72,7 +74,7 @@ struct SouthIndiaArtView: View {
                     .overlay(Capsule().stroke(.white.opacity(0.1), lineWidth: 0.5))
                     .padding(.horizontal, 24)
                     .padding(.bottom, 16)
-                
+                    
                     ScrollView(showsIndicators: false) {
                         LazyVGrid(columns: columns, spacing: 20) {
                             ForEach(filteredArts) { art in
@@ -87,7 +89,20 @@ struct SouthIndiaArtView: View {
                         .padding(.top, 8)
                         .padding(.bottom, 40)
                     }
+                }.toolbar {
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button {
+                            dismiss()
+                        } label: {
+                            Image(systemName: "chevron.left")
+                                .foregroundColor(.white)
+                        }
+                    }
                 }
+
+//                }.onDisappear {
+//                    dismiss()
+//                }
             }
         }
     }
