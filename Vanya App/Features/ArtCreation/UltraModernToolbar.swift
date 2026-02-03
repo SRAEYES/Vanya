@@ -5,9 +5,17 @@
 //  Created by user66 on 03/02/26.
 //
 
+//
+//  UltraModernToolbar.swift
+//  SwiftStudentChalleneg
+//
+//  Award-winning toolbar with sliders
+//
+
 import SwiftUI
 import PencilKit
 
+@available(iOS 17.0, *)
 struct UltraModernToolbar: View {
 
     @Binding var selectedTool: PKTool
@@ -16,11 +24,10 @@ struct UltraModernToolbar: View {
     @State private var activeTool: DrawingTool = .pencil
     @State private var selectedColor: UIColor = .black
     @State private var brushSize: CGFloat = 5
-    @State private var showBrushPicker = false
-    @State private var showFillMode = false
+    @State private var showBrushSlider = false
 
     let colors: [UIColor] = [
-        .black, .systemGray, .white,
+        .black, .darkGray, .white,
         .systemRed, .systemOrange, .systemYellow,
         .systemGreen, .systemMint, .systemTeal,
         .systemBlue, .systemIndigo, .systemPurple,
@@ -29,7 +36,7 @@ struct UltraModernToolbar: View {
 
     var body: some View {
         VStack(spacing: 8) {
-            // Color Palette Row
+            // 🎨 Color Palette Row
             if showColorPicker {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 10) {
@@ -43,30 +50,75 @@ struct UltraModernToolbar: View {
                 .transition(.move(edge: .bottom).combined(with: .opacity))
             }
             
-            // Main Compact Toolbar
+            // 🔧 Brush Size Slider
+            if showBrushSlider && activeTool != .eraser {
+                VStack(spacing: 6) {
+                    HStack(spacing: 12) {
+                        Text("SIZE")
+                            .font(.system(size: 10, weight: .bold))
+                            .foregroundColor(.gray)
+                        
+                        Slider(value: $brushSize, in: 2...20, step: 1)
+                            .tint(.orange)
+                            .onChange(of: brushSize) { _, _ in
+                                updateTool()
+                                UIImpactFeedbackGenerator(style: .soft).impactOccurred()
+                            }
+                        
+                        Circle()
+                            .fill(Color(selectedColor))
+                            .frame(width: brushSize, height: brushSize)
+                            .shadow(color: Color(selectedColor).opacity(0.4), radius: 4)
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 10)
+                    .background(
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(.ultraThinMaterial)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 16)
+                                    .strokeBorder(
+                                        LinearGradient(
+                                            colors: [.white.opacity(0.5), .white.opacity(0.1)],
+                                            startPoint: .topLeading,
+                                            endPoint: .bottomTrailing
+                                        ),
+                                        lineWidth: 1
+                                    )
+                            )
+                    )
+                }
+                .padding(.horizontal, 16)
+                .transition(.move(edge: .bottom).combined(with: .opacity))
+            }
+            
+            // 🎯 Main Toolbar
             HStack(spacing: 0) {
-                // Color Selector with Glow
+                // Color Selector
                 Button {
                     withAnimation(.spring(response: 0.3)) {
                         showColorPicker.toggle()
+                        if showColorPicker {
+                            showBrushSlider = false
+                        }
                     }
                     UIImpactFeedbackGenerator(style: .soft).impactOccurred()
                 } label: {
                     ZStack {
                         Circle()
-                            .fill(Color(selectedColor))
+                            .fill(Color(uiColor: selectedColor))
                             .frame(width: 32, height: 32)
                             .overlay(
                                 Circle()
                                     .strokeBorder(.white, lineWidth: 2.5)
                             )
-                            .shadow(color: Color(selectedColor).opacity(0.5), radius: 8, x: 0, y: 2)
+                            .shadow(color: Color(uiColor: selectedColor).opacity(0.5), radius: 8, x: 0, y: 2)
                         
                         if showColorPicker {
                             Circle()
-                                .stroke(Color(selectedColor), lineWidth: 1)
+                                .stroke(Color(uiColor: selectedColor), lineWidth: 1)
                                 .frame(width: 40, height: 40)
-                                .opacity(0.3)
+                                .opacity(0.4)
                         }
                     }
                 }
@@ -74,7 +126,7 @@ struct UltraModernToolbar: View {
                 
                 Spacer()
                 
-                // Tools with Glow Effect
+                // Tools
                 HStack(spacing: 12) {
                     toolButton("pencil", .pencil)
                     toolButton("pencil.tip", .pen)
@@ -85,24 +137,36 @@ struct UltraModernToolbar: View {
                 
                 Spacer()
                 
-                // Brush Size with Glow
+                // Brush Size Toggle
                 Button {
                     withAnimation(.spring(response: 0.3)) {
-                        showBrushPicker.toggle()
+                        showBrushSlider.toggle()
+                        if showBrushSlider {
+                            showColorPicker = false
+                        }
                     }
                     UIImpactFeedbackGenerator(style: .soft).impactOccurred()
                 } label: {
-                    VStack(spacing: 4) {
-                        Circle()
-                            .fill(Color(selectedColor))
-                            .frame(width: brushPreviewSize, height: brushPreviewSize)
-                            .shadow(color: Color(selectedColor).opacity(0.4), radius: 4)
+                    VStack(spacing: 3) {
+                        ZStack {
+                            Circle()
+                                .fill(Color(uiColor: selectedColor))
+                                .frame(width: brushPreviewSize, height: brushPreviewSize)
+                                .shadow(color: Color(uiColor: selectedColor).opacity(0.4), radius: 4)
+                            
+                            if showBrushSlider {
+                                Circle()
+                                    .stroke(Color(uiColor: selectedColor), lineWidth: 1)
+                                    .frame(width: brushPreviewSize + 8, height: brushPreviewSize + 8)
+                                    .opacity(0.4)
+                            }
+                        }
                         
                         Text(brushSizeName)
                             .font(.system(size: 8, weight: .bold))
                             .foregroundColor(.gray)
                     }
-                    .frame(width: 32, height: 32)
+                    .frame(width: 32)
                 }
                 .padding(.trailing, 20)
             }
@@ -124,51 +188,17 @@ struct UltraModernToolbar: View {
                     .shadow(color: .black.opacity(0.08), radius: 12, x: 0, y: 4)
             )
             .padding(.horizontal, 16)
-            
-            // Brush Size Picker
-            if showBrushPicker {
-                VStack(spacing: 8) {
-                    Text("Brush Size")
-                        .font(.caption.weight(.medium))
-                        .foregroundColor(.gray)
-                    
-                    HStack(spacing: 16) {
-                        ForEach([3.0, 5.0, 8.0, 12.0, 16.0], id: \.self) { size in
-                            Button {
-                                brushSize = size
-                                updateTool()
-                                UIImpactFeedbackGenerator(style: .soft).impactOccurred()
-                            } label: {
-                                Circle()
-                                    .fill(Color(selectedColor))
-                                    .frame(width: size * 1.5, height: size * 1.5)
-                                    .overlay(
-                                        Circle()
-                                            .stroke(Color.orange, lineWidth: brushSize == size ? 2 : 0)
-                                            .padding(-4)
-                                    )
-                                    .shadow(color: Color(selectedColor).opacity(0.3), radius: 4)
-                            }
-                        }
-                    }
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 12)
-                    .background(
-                        RoundedRectangle(cornerRadius: 16)
-                            .fill(.ultraThinMaterial)
-                    )
-                }
-                .padding(.horizontal, 16)
-                .transition(.move(edge: .bottom).combined(with: .opacity))
-            }
         }
     }
     
-    // Tool Button with Glow
+    // Tool Button
     func toolButton(_ icon: String, _ tool: DrawingTool) -> some View {
         Button {
             withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
                 activeTool = tool
+                if tool == .eraser {
+                    showBrushSlider = false
+                }
                 updateTool()
             }
         } label: {
@@ -194,31 +224,25 @@ struct UltraModernToolbar: View {
             }
         } label: {
             Circle()
-                .fill(Color(color))
+                .fill(Color(uiColor: color))
                 .frame(width: 32, height: 32)
                 .overlay(
                     Circle()
                         .strokeBorder(.white, lineWidth: selectedColor == color ? 3 : 0)
                 )
-                .shadow(color: Color(color).opacity(0.4), radius: selectedColor == color ? 6 : 2)
+                .shadow(color: Color(uiColor: color).opacity(0.4), radius: selectedColor == color ? 6 : 2)
                 .scaleEffect(selectedColor == color ? 1.15 : 1.0)
         }
         .buttonStyle(ScaleButtonStyle())
     }
     
     var brushPreviewSize: CGFloat {
-        switch activeTool {
-        case .pencil: return brushSize * 1.2
-        case .pen: return brushSize * 1.3
-        case .marker: return brushSize * 1.5
-        case .fill: return 12
-        case .eraser: return 10
-        }
+        min(max(brushSize * 1.5, 8), 20)
     }
     
     var brushSizeName: String {
-        if brushSize <= 3 { return "FINE" }
-        else if brushSize <= 8 { return "MED" }
+        if brushSize <= 5 { return "FINE" }
+        else if brushSize <= 12 { return "MED" }
         else { return "BOLD" }
     }
 
@@ -231,18 +255,25 @@ struct UltraModernToolbar: View {
         case .marker:
             selectedTool = PKInkingTool(.marker, color: selectedColor, width: brushSize * 1.5)
         case .fill:
-            // Fill mode - use marker with large width for now
             selectedTool = PKInkingTool(.marker, color: selectedColor, width: 50)
         case .eraser:
             selectedTool = PKEraserTool(.vector)
         }
         
-        // Gentle haptic
         UIImpactFeedbackGenerator(style: .soft).impactOccurred()
     }
 }
 
-// MARK: - Drawing Tool Enum
+// Drawing Tool Enum
 enum DrawingTool {
     case pencil, pen, marker, fill, eraser
+}
+
+// Scale Button Style
+struct ScaleButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .scaleEffect(configuration.isPressed ? 0.90 : 1.0)
+            .animation(.spring(response: 0.2, dampingFraction: 0.6), value: configuration.isPressed)
+    }
 }

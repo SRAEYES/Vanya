@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@available(iOS 17.0, *)
 struct PremiumArtTile: View {
     let image: String
     let title: String
