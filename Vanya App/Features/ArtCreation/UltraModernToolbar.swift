@@ -253,12 +253,3 @@ struct UltraModernToolbar: View {
 enum DrawingTool {
     case pencil, pen, marker, fill, eraser
 }
-
-// MARK: - Scale Button Style
-//struct ScaleButtonStyle: ButtonStyle {
-//    func makeBody(configuration: Configuration) -> some View {
-//        configuration.label
-//            .scaleEffect(configuration.isPressed ? 0.90 : 1.0)
-//            .animation(.spring(response: 0.2, dampingFraction: 0.6), value: configuration.isPressed)
-//    }
-//}
