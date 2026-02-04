@@ -19,7 +19,7 @@ struct PremiumArtTile: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             
-            // 🖼️ IMAGE → OPENS CREATE ART VIEW
+            // IMAGE → OPENS CREATE ART VIEW
             NavigationLink(destination: CreateArtView()) {
                 ZStack {
                     // Frame for the image
@@ -33,7 +33,7 @@ struct PremiumArtTile: View {
             }
             .buttonStyle(PlainButtonStyle())
 
-            // 🏷️ TEXT & COMMUNITY ACTIONS
+            // TEXT & COMMUNITY ACTIONS
             VStack(alignment: .leading, spacing: 12) {
                 VStack(alignment: .leading, spacing: 2) {
                     Text(title)
@@ -47,7 +47,7 @@ struct PremiumArtTile: View {
                         .foregroundColor(.white.opacity(0.4))
                 }
                 
-                // ❤️ ACTION BAR
+                // ACTION BAR
                 HStack(spacing: 18) {
                     Button {
                         liked.toggle()
@@ -75,7 +75,7 @@ struct PremiumArtTile: View {
             .padding([.horizontal, .bottom], 14)
             .padding(.top, 2)
         }
-        // ✨ THE LIQUID GLASS EFFECT
+        // THE LIQUID GLASS EFFECT
         .background(.ultraThinMaterial.opacity(0.15))
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
         .overlay(

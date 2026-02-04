@@ -92,7 +92,7 @@ struct UltraModernToolbar: View {
                 .transition(.move(edge: .bottom).combined(with: .opacity))
             }
             
-            // 🎯 Main Toolbar
+            // Main Toolbar
             HStack(spacing: 0) {
                 // Color Selector
                 Button {
