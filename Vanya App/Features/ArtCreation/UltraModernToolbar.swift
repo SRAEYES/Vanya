@@ -5,12 +5,6 @@
 //  Created by user66 on 03/02/26.
 //
 
-//
-//  UltraModernToolbar.swift
-//  SwiftStudentChalleneg
-//
-//  Award-winning toolbar with sliders
-//
 
 import SwiftUI
 import PencilKit
@@ -36,7 +30,7 @@ struct UltraModernToolbar: View {
 
     var body: some View {
         VStack(spacing: 8) {
-            // 🎨 Color Palette Row
+            // Color Palette Row
             if showColorPicker {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 10) {
@@ -50,7 +44,7 @@ struct UltraModernToolbar: View {
                 .transition(.move(edge: .bottom).combined(with: .opacity))
             }
             
-            // 🔧 Brush Size Slider
+            // Brush Size Slider
             if showBrushSlider && activeTool != .eraser {
                 VStack(spacing: 6) {
                     HStack(spacing: 12) {

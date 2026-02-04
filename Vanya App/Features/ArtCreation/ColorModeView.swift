@@ -37,7 +37,7 @@ struct ColorModeView: View {
                         path.addLine(to: point)
                     }
                 }
-                .stroke(stroke.color, lineWidth: 8)   // thicker = coloring feel
+                .stroke(stroke.color, lineWidth: 8)   
             }
 
             // Color palette

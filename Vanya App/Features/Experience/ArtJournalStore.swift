@@ -19,7 +19,6 @@ struct JournalEntry: Identifiable {
 class ArtJournalStore: ObservableObject {
 
     @MainActor static let shared = ArtJournalStore()
-
     @Published var entries: [JournalEntry] = []
 
     private init() {}

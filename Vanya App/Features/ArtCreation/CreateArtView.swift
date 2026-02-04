@@ -34,7 +34,7 @@ struct CreateArtView: View {
             .ignoresSafeArea()
 
             VStack(spacing: 0) {
-                // 🎯 Refined Top Bar
+                // Refined Top Bar
                 HStack(spacing: 12) {
                     // Back button
                     Button {
@@ -121,7 +121,7 @@ struct CreateArtView: View {
                 .padding(.top, 12)
                 .padding(.bottom, 8)
                 
-                // 🎨 Maximum Drawing Area
+                // Maximum Drawing Area
                 ZStack {
                     if showGuide {
                         Image("kalamkari_outline")
@@ -154,7 +154,7 @@ struct CreateArtView: View {
                 }
                 .frame(maxHeight: .infinity)
                 
-                // 🔧 Ultra-Modern Toolbar
+                // Ultra-Modern Toolbar
                 UltraModernToolbar(
                     selectedTool: $selectedTool,
                     showColorPicker: $showColorPicker
