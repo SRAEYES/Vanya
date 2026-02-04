@@ -22,7 +22,7 @@ struct CreateArtView: View {
 
     var body: some View {
         ZStack {
-            // 🎨 Premium gradient background
+            // Premium gradient background
             LinearGradient(
                 colors: [
                     Color(red: 0.98, green: 0.97, blue: 0.95),
